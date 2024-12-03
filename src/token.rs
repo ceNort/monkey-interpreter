@@ -1,3 +1,5 @@
+#[allow(non_camel_case_types)]
+
 #[derive(Debug)]
 pub enum TokenType {
     ILLEGAL,
@@ -10,6 +12,16 @@ pub enum TokenType {
     // Operators
     ASSIGN,
     PLUS,
+    MINUS,
+    BANG,
+    SLASH,
+    ASTERISK,
+
+    GT,
+    LT,
+
+    EQ,
+    NOT_EQ,
 
     // Delimiters
     COMMA,
@@ -22,7 +34,12 @@ pub enum TokenType {
 
     // Keywords
     FUNCTION,
-    LET
+    LET,
+    IF,
+    ELSE,
+    TRUE,
+    FALSE,
+    RETURN,
 }
 
 impl TokenType {
@@ -34,6 +51,14 @@ impl TokenType {
             TokenType::INT         => "INT",
             TokenType::ASSIGN      => "=",
             TokenType::PLUS        => "+",
+            TokenType::MINUS       => "-",
+            TokenType::BANG        => "!",
+            TokenType::SLASH       => "/",
+            TokenType::ASTERISK    => "*",
+            TokenType::GT          => ">",
+            TokenType::LT          => "<",
+            TokenType::EQ          => "==",
+            TokenType::NOT_EQ      => "!=",
             TokenType::COMMA       => ",",
             TokenType::SEMICOLON   => ";",
             TokenType::LPAREN      => "(",
@@ -41,7 +66,12 @@ impl TokenType {
             TokenType::LBRACE      => "{",
             TokenType::RBRACE      => "}",
             TokenType::FUNCTION    => "FUNCTION",
-            TokenType::LET         => "LET"
+            TokenType::LET         => "LET",
+            TokenType::IF          => "IF",
+            TokenType::ELSE        => "ELSE",
+            TokenType::TRUE        => "TRUE",
+            TokenType::FALSE       => "FALSE",
+            TokenType::RETURN      => "RETURN",
         }
     }
 }
@@ -57,6 +87,11 @@ impl Token {
         match ident {
             "fn" => TokenType::FUNCTION,
             "let" => TokenType::LET,
+            "if" => TokenType::IF,
+            "else" => TokenType::ELSE,
+            "true" => TokenType::TRUE,
+            "false" => TokenType::FALSE,
+            "return" => TokenType::RETURN,
             _ => TokenType::IDENT,
         }
     }

@@ -28,12 +28,36 @@ impl Lexer {
         self.skip_whitespace();
 
         let tok: Token = match self.ch {
-            Some('=') => new_token(TokenType::ASSIGN, self.ch.unwrap()),
+            Some('=') => {
+                if self.peek_char() == '=' {
+                    let ch = self.ch.unwrap();
+                    self.read_char();
+                    let literal = ch.to_string() + &self.ch.unwrap().to_string();
+                    Token { t_type: TokenType::EQ, literal }
+                } else {
+                    new_token(TokenType::ASSIGN, self.ch.unwrap())
+                }
+            },
             Some(';') => new_token(TokenType::SEMICOLON, self.ch.unwrap()),
             Some('(') => new_token(TokenType::LPAREN, self.ch.unwrap()),
             Some(')') => new_token(TokenType::RPAREN, self.ch.unwrap()),
             Some(',') => new_token(TokenType::COMMA, self.ch.unwrap()),
             Some('+') => new_token(TokenType::PLUS, self.ch.unwrap()),
+            Some('-') => new_token(TokenType::MINUS, self.ch.unwrap()),
+            Some('!') => {
+                if self.peek_char() == '=' {
+                    let ch = self.ch.unwrap();
+                    self.read_char();
+                    let literal = ch.to_string() + &self.ch.unwrap().to_string();
+                    Token { t_type: TokenType::NOT_EQ, literal }
+                } else {
+                    new_token(TokenType::BANG, self.ch.unwrap())
+                }
+            },
+            Some('/') => new_token(TokenType::SLASH, self.ch.unwrap()),
+            Some('*') => new_token(TokenType::ASTERISK, self.ch.unwrap()),
+            Some('>') => new_token(TokenType::GT, self.ch.unwrap()),
+            Some('<') => new_token(TokenType::LT, self.ch.unwrap()),
             Some('{') => new_token(TokenType::LBRACE, self.ch.unwrap()),
             Some('}') => new_token(TokenType::RBRACE, self.ch.unwrap()),
             None => new_token(TokenType::EOF, ' '),
@@ -84,6 +108,14 @@ impl Lexer {
             } else {
                 break;
             }
+        }
+    }
+
+    pub fn peek_char(&self) -> char {
+        if self.read_position >= self.input.len() {
+            '0'
+        } else {
+            self.input.chars().nth(self.read_position).unwrap()
         }
     }
 }

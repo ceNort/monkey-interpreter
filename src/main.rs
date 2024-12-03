@@ -21,7 +21,18 @@ mod tests {
 	  x + y;
 	};
 
-	let result = add(five, ten);"#;
+	let result = add(five, ten);
+	!-/*5;
+	5 < 10 > 5;
+
+	if (5 < 10) {
+	    return true;
+	} else {
+	    return false;
+	}
+
+	10 == 10;
+	10 != 9;"#;
 
         let tests = vec![
             (TokenType::LET, "let"),
@@ -60,27 +71,49 @@ mod tests {
             (TokenType::IDENT, "ten"),
             (TokenType::RPAREN, ")"),
             (TokenType::SEMICOLON, ";"),
+            (TokenType::BANG, "!"),
+            (TokenType::MINUS, "-"),
+            (TokenType::SLASH, "/"),
+            (TokenType::ASTERISK, "*"),
+            (TokenType::INT, "5"),
+            (TokenType::SEMICOLON, ";"),
+	        (TokenType::INT, "5"),
+            (TokenType::LT, "<"),
+            (TokenType::INT, "10"),
+            (TokenType::GT, ">"),
+            (TokenType::INT, "5"),
+            (TokenType::SEMICOLON, ";"),
+            (TokenType::IF, "if"),
+            (TokenType::LPAREN, "("),
+            (TokenType::INT, "5"),
+            (TokenType::LT, "<"),
+            (TokenType::INT, "10"),
+            (TokenType::RPAREN, ")"),
+            (TokenType::LBRACE, "{"),
+            (TokenType::RETURN, "return"),
+            (TokenType::TRUE, "true"),
+            (TokenType::SEMICOLON, ";"),
+            (TokenType::RBRACE, "}"),
+            (TokenType::ELSE, "else"),
+            (TokenType::LBRACE, "{"),
+            (TokenType::RETURN, "return"),
+            (TokenType::FALSE, "false"),
+            (TokenType::SEMICOLON, ";"),
+            (TokenType::RBRACE, "}"),
+            (TokenType::INT, "10"),
+            (TokenType::EQ, "=="),
+            (TokenType::INT, "10"),
+            (TokenType::SEMICOLON, ";"),
+	        (TokenType::INT, "10"),
+            (TokenType::NOT_EQ, "!="),
+            (TokenType::INT, "9"),
+            (TokenType::SEMICOLON, ";"),
             (TokenType::EOF, " "),
         ];
 
-        // ORIG
-        // let input = "=+(){},;";
-        //
-        // let tests = vec![
-        //     (TokenType::ASSIGN,    "="),
-        //     (TokenType::PLUS,      "+"),
-        //     (TokenType::LPAREN,    "("),
-        //     (TokenType::RPAREN,    ")"),
-        //     (TokenType::LBRACE,    "{"),
-        //     (TokenType::RBRACE,    "}"),
-        //     (TokenType::COMMA,     ","),
-        //     (TokenType::SEMICOLON, ";"),
-        //     (TokenType::EOF,       ""),
-        // ];
-
         let mut l = Lexer::new(input);
 
-        for (index, (ttype, literal)) in tests.iter().enumerate() {
+        for (_index, (ttype, literal)) in tests.iter().enumerate() {
             let tok: Token = l.next_token();
 
             assert_eq!(tok.t_type.as_str(), ttype.as_str());
