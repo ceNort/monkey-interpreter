@@ -1,6 +1,6 @@
 #[allow(non_camel_case_types)]
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum TokenType {
     ILLEGAL,
     EOF,
@@ -76,6 +76,11 @@ impl TokenType {
     }
 }
 
+// impl PartialEq for TokenType {
+//     fn eq(&self, other: &Self) -> bool {
+//         todo!()
+//     }
+// }
 #[derive(Debug)]
 pub struct Token {
     pub t_type:  TokenType,

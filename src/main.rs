@@ -1,11 +1,16 @@
 mod lexer;
 mod token;
+mod repl;
 
 use token::*;
 use lexer::*;
+use repl::start;
 
 fn main() {
-    println!("Hello, world!");
+    println!("Hello Chloe! This is the Monkey programming language!");
+    println!("Feel free to type in commands");
+
+    start();
 }
 
 #[cfg(test)]
